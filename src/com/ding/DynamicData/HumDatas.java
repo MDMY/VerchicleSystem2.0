@@ -23,7 +23,7 @@ public class HumDatas {
 			// TODO: handle exception
 		}
 		
-		System.out.println("�߳�"+Thread.currentThread().getName()+"String:"+humData);
+		System.out.println("线程"+Thread.currentThread().getName()+"String:"+humData);
 	}
 	public String getString(){
 		return humData;

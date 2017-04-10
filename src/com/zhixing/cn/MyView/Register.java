@@ -39,7 +39,7 @@ public class Register extends JFrame {
 	private JTextField usernameTextField;
 	private JPasswordField passwordField1;
 	private JPasswordField passwordField2;
-    private JTextField emailTextField;
+    private JTextField phoneTextField;
     private JLabel tipLabel=new JLabel();
     
     
@@ -75,7 +75,7 @@ public class Register extends JFrame {
     	contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
     	JPanel usernamePanel = new JPanel();
     	contentPane.add(usernamePanel);
-    	JLabel usernameLabel = new JLabel("UserName");
+    	JLabel usernameLabel = new JLabel("用户名称");
     	usernameLabel.setFont(new Font("微软雅黑", Font.PLAIN, 15));
     	usernamePanel.add(usernameLabel);
     	usernameTextField = new JTextField();
@@ -88,7 +88,7 @@ public class Register extends JFrame {
     	usernameTextField.setColumns(10);
     	JPanel passwordPanel1 = new JPanel();
     	contentPane.add(passwordPanel1);
-    	JLabel passwordLabel1 = new JLabel("Password");
+    	JLabel passwordLabel1 = new JLabel("用户密码");
     	passwordLabel1.setFont(new Font("微软雅黑", Font.PLAIN, 15));
     	passwordPanel1.add(passwordLabel1);
     	passwordField1 = new JPasswordField();
@@ -100,7 +100,7 @@ public class Register extends JFrame {
     	passwordPanel1.add(passwordField1);
     	JPanel passwordPanel2 = new JPanel();
     	contentPane.add(passwordPanel2);
-    	JLabel passwordLabel2 = new JLabel("ConfirmPassword");
+    	JLabel passwordLabel2 = new JLabel("确认密码");
     	passwordLabel2.setFont(new Font("微软雅黑", Font.PLAIN, 15));
     	passwordPanel2.add(passwordLabel2);
     	passwordField2 = new JPasswordField();
@@ -110,21 +110,21 @@ public class Register extends JFrame {
     	passwordField2.setFont(new Font("微软雅黑", Font.PLAIN, 15));
     	passwordField2.setColumns(10);
     	passwordPanel2.add(passwordField2);
-    	JPanel emailPanel = new JPanel();
-    	contentPane.add(emailPanel);
-    	JLabel emailLabel = new JLabel("Email");
-    	emailLabel.setFont(new Font("微软雅黑", Font.PLAIN, 15));
-    	emailPanel.add(emailLabel);
-    	emailTextField = new JTextField();
-    	doc = (AbstractDocument) emailTextField.getDocument();
+    	JPanel phonePanel = new JPanel();
+    	contentPane.add(phonePanel);
+    	JLabel phoneLabel = new JLabel("手机号码");
+    	phoneLabel.setFont(new Font("微软雅黑", Font.PLAIN, 15));
+    	phonePanel.add(phoneLabel);
+    	phoneTextField = new JTextField();
+    	doc = (AbstractDocument) phoneTextField.getDocument();
     	doc.setDocumentFilter(new DocumentSizeFilter(45));// 限制文本域内可以输入字符长度为45
     	doc.addDocumentListener(new DocumentSizeListener(tipLabel, 45));
-    	emailTextField.setFont(new Font("微软雅黑", Font.PLAIN, 15));
-    	emailPanel.add(emailTextField);
-    	emailTextField.setColumns(10);
+    	phoneTextField.setFont(new Font("微软雅黑", Font.PLAIN, 15));
+    	phonePanel.add(phoneTextField);
+    	phoneTextField.setColumns(10);
     	JPanel buttonPanel = new JPanel();
     	contentPane.add(buttonPanel);
-    	JButton submitButton = new JButton("Sumbit");
+    	JButton submitButton = new JButton("提交");
     	submitButton.addActionListener(new ActionListener() {
     	@Override
     	public void actionPerformed(ActionEvent e) {
@@ -138,7 +138,7 @@ public class Register extends JFrame {
     	buttonPanel.add(glue);
     	submitButton.setFont(new Font("微软雅黑", Font.PLAIN, 15));
     	buttonPanel.add(submitButton);
-    	JButton cancelButton = new JButton("Return");
+    	JButton cancelButton = new JButton("返回");
     	cancelButton.addActionListener(new ActionListener() {
     	@Override
     	public void actionPerformed(ActionEvent e) {
@@ -162,7 +162,7 @@ public class Register extends JFrame {
 		String username=usernameTextField.getText();
 		String  password1=passwordField1.getText();
 		String  password2=passwordField2.getText();
-		String email=emailTextField.getText();
+		String phone=phoneTextField.getText();
 		if (username.isEmpty()) {// 判断用户名是否为空
 			JOptionPane.showMessageDialog(this, "UserName cannot be empty！", "Warning Message", JOptionPane.WARNING_MESSAGE);
 			return;
@@ -175,7 +175,7 @@ public class Register extends JFrame {
 			JOptionPane.showMessageDialog(this, "Confirm password cannot be empty！", "Warning Message", JOptionPane.WARNING_MESSAGE);
 			return;
 			}
-		if (email.isEmpty()) {// 判断电子邮箱是否为空
+		if (phone.isEmpty()) {// 判断电子邮箱是否为空
 			JOptionPane.showMessageDialog(this, "E-mail can not be empty！", "Warning Message", JOptionPane.WARNING_MESSAGE);
 			return;
 			}
@@ -190,10 +190,10 @@ public class Register extends JFrame {
 		return;
 		}
 		// 校验电子邮箱是否合法
-		if (!Pattern.matches("\\w+@\\w+\\.\\w+", email)) {
-		JOptionPane.showMessageDialog(this, "Please enter a valid e-mail address！", "Warning Message", JOptionPane.WARNING_MESSAGE);
-		return;
-		}
+//		if (!Pattern.matches("\\w+@\\w+\\.\\w+", email)) {
+//		JOptionPane.showMessageDialog(this, "Please enter a valid e-mail address！", "Warning Message", JOptionPane.WARNING_MESSAGE);
+//		return;
+//		}
 		// 校验用户名是否存在
 		if (DBHelper.exists(username)) {
 		JOptionPane.showMessageDialog(this, "User name already exists", "Warning Message", JOptionPane.WARNING_MESSAGE);
@@ -202,7 +202,7 @@ public class Register extends JFrame {
 		User user = new User();
 		user.setUsername(username);
 		user.setPassword(new String(password1));
-		user.setEmail(email);
+		user.setPhone(phone);
 		Arrays.fill(password1.toCharArray(), '0');// 清空保存密码的字符数组
 		Arrays.fill(password2.toCharArray(), '0');// 清空保存密码的字符数组
 		if (DBHelper.save(user)) {

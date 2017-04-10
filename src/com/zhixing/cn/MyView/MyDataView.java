@@ -87,10 +87,10 @@ public class MyDataView extends Frame {
 	private Choice commChoice = new Choice(); // 串口选择（下拉框）
 	private Choice bpsChoice = new Choice(); // 波特率选择
 
-	private Button openUserMessage=new Button("用户信息1");
-	private Button openPeopleButton = new Button("附件的车2");
-	private Button openSerialButton = new Button("打开串口3");
-	private Button openIflytekButton = new Button("打开语音4");
+	private Button openUserMessage=new Button("用户信息");
+	private Button openPeopleButton = new Button("附近的车");
+	private Button openSerialButton = new Button("打开串口");
+	private Button openIflytekButton = new Button("打开语音");
 	
 
 	Image offScreen = null; // 重画时的画布
@@ -184,7 +184,7 @@ public class MyDataView extends Frame {
 				// TODO Auto-generated method stub
 				 while(true){
 	                    try {
-	                    	hum.setText(humData+" ℃  ");//输出到Label上             
+	                    	hum.setText(humData+" ℃");//输出到Label上             
 	                        Thread.sleep(5000);//每隔一秒刷新一次
 	                 } catch (Exception e) {
 	                	 
@@ -285,6 +285,16 @@ public class MyDataView extends Frame {
 		openUserMessage.setFont(new Font("微软雅黑",Font.BOLD,20));
 		openUserMessage.setForeground(Color.darkGray);
 		add(openUserMessage);
+		openUserMessage.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				UserMessage frame=new UserMessage();
+				frame.setVisible(true);
+				
+			}
+		});
 		//搜索附近的人
 		openPeopleButton.setBounds(450, 490, 300, 50);
 		openPeopleButton.setBackground(Color.lightGray);

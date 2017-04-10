@@ -7,6 +7,7 @@ package com.zhixing.cn.MyUtil;
 import java.util.List;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 //import java.util.*;
 
@@ -18,7 +19,9 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.lang.StringEscapeUtils;
 
 import com.zhixing.model.User;
+//import com.mysql.jdbc.Statement;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+import com.sun.glass.ui.TouchInputSupport;
 
 public class DBHelper implements DBConfig{
 	
@@ -38,7 +41,7 @@ public class DBHelper implements DBConfig{
 	
 	public static boolean exists(String username){
 		QueryRunner runner=new QueryRunner();
-		String sql="select id from tb_user where username='"+username+"';";
+		String sql="select id from tb_user where userName='"+username+"';";
 		Connection conn=getConnection();
 		ResultSetHandler<List<Object>> rsh=new ColumnListHandler();
 		try{
@@ -59,7 +62,7 @@ public class DBHelper implements DBConfig{
 	public static boolean check(String username,char[] password){
 		username=StringEscapeUtils.escapeSql(username);
 		QueryRunner runner=new QueryRunner();
-		String sql="select password from tb_user where username = '" + username + "';";
+		String sql="select password from tb_user where userName = '" + username + "';";
 		Connection conn=getConnection();
 		ResultSetHandler<Object> rsh=new ScalarHandler();
 		try{
@@ -84,25 +87,53 @@ public class DBHelper implements DBConfig{
 	
 	public static boolean save(User user){
 		QueryRunner runner=new QueryRunner();
-		String sql="insert into tb_user (username,password,email) values(?,?,?);";
-//		String sql="insert into  tb_user (username,password,email) values "
-//				+ "('"+user.getUsername()+"','"+user.getPassword()+"','"+user.getEmail()+"')";
+		QueryRunner runner1=new QueryRunner();
+		String sql="insert into tb_user (userName,password,userPhone) values(?,?,?);";
+		String sql1="insert into tb_car(userPhone,userEmail,carNo,carName) values(?,?,?,?);";
 		Connection conn=getConnection();
-		Object[] params={user.getUsername(),user.getPassword(),user.getEmail()};
-		System.out.println("dddd<<<<" +sql);
+		Object[] params={user.getUsername(),user.getPassword(),user.getPhone()};
+		Object[] params1={user.getPhone(),"--","--","--"};
+//		System.out.println("dddd<<<<" +sql);
+//		System.out.println("dddd<<<<" +sql1);
 		try{
 			int result=runner.update(conn,sql,params);
-			if(result >0){
+			int result1=runner1.update(conn,sql1,params1);
+			if(result>0 && result1>0){
 				return true;
 			}else{
 				return false;
 			}
+			
+			
 		}catch(SQLException e){
 			e.printStackTrace();
 		}finally{
 			DbUtils.closeQuietly(conn);
 		}
 		return false;
+	}
+	
+	public static boolean DataUpdate(String sql){
+		//QueryRunner runner=new QueryRunner();
+		Connection connection=getConnection();
+		try{
+			//在连接对象的基础上创建会话对象
+			Statement statement=connection.createStatement();
+			int rs=statement.executeUpdate(sql);
+			statement.close();
+			connection.close();
+			//如果受影响的行数大于0，则修改数据成功
+			if (rs>0) {
+				return true;
+			}else{
+				return false;
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+			return false;
+		}
+		
+		
 	}
 }
 

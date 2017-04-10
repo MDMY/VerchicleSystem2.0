@@ -23,7 +23,7 @@ public class GasDatas {
 			// TODO: handle exception
 		}
 		
-		System.out.println("�߳�"+Thread.currentThread().getName()+"String:"+gasData);
+		System.out.println("线程"+Thread.currentThread().getName()+"String:"+gasData);
 	}
 	public String getString(){
 		return gasData;

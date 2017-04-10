@@ -23,7 +23,7 @@ public class TemDatas {
 			// TODO: handle exception
 		}
 		
-		System.out.println("�߳�"+Thread.currentThread().getName()+"String:"+temData);
+		System.out.println("线程"+Thread.currentThread().getName()+"String:"+temData);
 	}
 	public String getString(){
 		return temData;

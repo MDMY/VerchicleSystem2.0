@@ -13,7 +13,7 @@ public class Message {
 	 public String carNo;
 	 public String carName;
 	
-	public void getUserMessageInfo(Vector uMessager){
+	public void getUserMessageInfo(Vector uMessager) throws NullPointerException{
 		userPhone=uMessager.get(0).toString();
 		userName=uMessager.get(1).toString();
 		userEmail=uMessager.get(2).toString();

@@ -109,11 +109,11 @@ public class MyClient extends Frame {
 
 		g.setFont(new Font("微软雅黑", Font.ITALIC, 26));
 		g.setColor(Color.BLACK);
-		g.drawString("Version：1.0   Powered By：ZWZ", 280, 260);
+		g.drawString("Version：2.0   Powered By：ZHIXINGTREAM", 230, 260);
 
 		g.setFont(new Font("微软雅黑", Font.BOLD, 30));
 		g.setColor(color);
-		g.drawString("――――点击Enter键进入主界面――――", 100, 480);
+		g.drawString("――――点击Enter键进入主界面――――", 180, 500);
 		// 使文字 "――――点击Enter键进入主界面――――" 黑白闪烁
 		if (color == Color.WHITE)
 			color = Color.black;

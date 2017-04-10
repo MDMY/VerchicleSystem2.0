@@ -27,6 +27,7 @@ import org.apache.commons.lang.RandomStringUtils;
 
 import com.zhixing.cn.MyUtil.CAPTCHALabel;
 import com.zhixing.cn.MyUtil.DBHelper;
+import com.zhixing.model.UserName;
 
 public class Login extends JFrame{
 	private static final long serialVersionUID= -4655235896173916415L;
@@ -35,6 +36,8 @@ public class Login extends JFrame{
 	private JPasswordField passwordField;
 	private JTextField validateTextField;
 	private String randomText;
+	
+	public String userNameBack;
 	
 	
 	public static void main(String args[]){
@@ -159,6 +162,15 @@ public class Login extends JFrame{
 		String username=usernameTextField.getText();
 		String  password=passwordField.getText();
 		String validate=validateTextField.getText();
+		
+		//保存登录的用户名字
+		UserName userName=new UserName();
+		userName.setUserName(usernameTextField.getText());
+		userNameBack=usernameTextField.getText();
+		//System.out.println("1111111111 :"+userName.getUserName());
+		//返回用户的登录信息
+		UserMessage.showTextFieldData(0,userName);
+		
 		if(username.isEmpty()){
 			JOptionPane.showMessageDialog(null,"UserName cannot be empty！","Warning Message",JOptionPane.WARNING_MESSAGE);
 			return;

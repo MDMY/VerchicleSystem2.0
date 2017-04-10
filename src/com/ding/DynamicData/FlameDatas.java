@@ -28,7 +28,7 @@ public class FlameDatas {
 			// TODO: handle exception
 		}
 		
-		System.out.println("�߳�"+Thread.currentThread().getName()+"String:"+flameData);
+		System.out.println("线程"+Thread.currentThread().getName()+"String:"+flameData);
 	}
 	public String getString(){
 		return flameData;
